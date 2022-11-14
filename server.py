@@ -16,10 +16,26 @@ AWESOMENESS = [
 
 @app.route('/')
 def start_here():
-    """Home page."""
-
-    return "<!doctype html><html>Hi! This is the home page.</html>"
-
+    """Home page.""" #<----doesnt get interpreted
+  #<title> is for the tab name
+    
+    
+    return """
+    <!doctype html>
+    <html>
+      <head>
+        <title>Home Page</title>
+        <h1>Hi! This is the home page.</h1>
+      </head>
+      <body>
+        <a href="http://localhost:5000/hello">Hello</a>
+      </body>
+    </html>
+    """ 
+    #^^^returning a string in triple qoutes is diff and shows up
+    #^^^line 31 is a link for our local server, not avail on internet...this is a developmental server just fo us...practice
+    #^^^on E's personal machine, the server would be diff 
+#^^^OUTPUT
 
 @app.route('/hello')
 def say_hello():
@@ -37,9 +53,35 @@ def say_hello():
           What's your name? <input type="text" name="person">
           <input type="submit" value="Submit">
         </form>
+        
+        <form>
+        <label for "compliment-select">Choose a compliment:</label>
+
+        <select name="comp">
+          <option value="awesome">awesome</option>
+          <option value="terrific">terrific</option>
+          <option value="fantastic">fantastic</option>
+          <option value="neato">neato</option>
+        </select>
+        
+        </form>
+
       </body>
     </html>
     """
+#^^^the first form is a TEXT INPUT form w/o the id-selector 
+#^^^the second form is a  DROPDOWN MENU form w/o id-selector
+
+
+# <form>
+#   <label for="lang-select">Choose your main programming language:</label>
+
+#   <select name="lang" id="lang-select">
+#     <option value="python">Python</option>
+#     <option value="javascript">JavaScript</option>
+#     <option value="ruby">Ruby</option>
+#   </select>
+# </form>
 
 
 @app.route('/greet')
@@ -48,7 +90,9 @@ def greet_person():
 
     player = request.args.get("person")
 
-    compliment = choice(AWESOMENESS)
+    #compliment = choice(AWESOMENESS)
+
+    compliment = request.args.get("comp")
 
     return f"""
     <!doctype html>
